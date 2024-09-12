@@ -1,0 +1,30 @@
+# Ignore build folder inside native-addon
+/native-addon/build/
+
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore Electron-packager/ Electron-builder output folders
+dist/
+out/
+
+# Native addon binaries and temporary files
+/native-addon/*.o
+/native-addon/*.obj
+/native-addon/*.so
+/native-addon/*.dll
+/native-addon/*.dylib
+/native-addon/*.exe
+/native-addon/*.lib
+/native-addon/*.a
+
+# Optional: Ignore the native addon `node_modules` (if applicable)
+/native-addon/node_modules/
