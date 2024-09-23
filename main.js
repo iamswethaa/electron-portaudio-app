@@ -9,7 +9,6 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
       contextIsolation: false, // To allow communication between renderer and main process
     },
@@ -22,13 +21,16 @@ app.on('ready', createWindow);
 
 // IPC communication to control audio recording and playback
 ipcMain.on('start-recording', (event) => {
+  console.log('Recording started');
   AudioRecorder.startRecording();
 });
 
 ipcMain.on('stop-recording', (event) => {
+  console.log('Recording stopped');
   AudioRecorder.stopRecording();
 });
 
 ipcMain.on('play-audio', (event) => {
+  console.log('Playing');
   AudioRecorder.playAudio();
 });
