@@ -22,8 +22,8 @@ This project is an Electron.js application that allows users to record and play 
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/audio-recorder-player.git
-   cd audio-recorder-player
+   git clone https://github.com/iamswethaa/electron-portaudio-app.git
+   cd electron-portaudio-app
 
 2. **Install dependencies:**
 
