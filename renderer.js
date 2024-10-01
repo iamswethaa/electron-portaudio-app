@@ -17,55 +17,60 @@ let wavesurfer = WaveSurfer.create({
 
 // Handle recording
 const recordBtn = document.getElementById('recordBtn');
-const stopBtn = document.getElementById('stopBtn');
 const playBtn = document.getElementById('playBtn');
 
 recordBtn.addEventListener('click', async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-    audioChunks = [];
+    
+    if (recordBtn.textContent === 'Record') {
 
-    // Create an AudioContext for the visualizer
-    const audioContext = new AudioContext();
-    const source = audioContext.createMediaStreamSource(stream);
-    const analyser = audioContext.createAnalyser();
-    source.connect(analyser);
-    analyser.fftSize = 2048;
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        audioChunks = [];
 
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
+        // Create an AudioContext for the visualizer
+        const audioContext = new AudioContext();
+        const source = audioContext.createMediaStreamSource(stream);
+        const analyser = audioContext.createAnalyser();
+        source.connect(analyser);
+        analyser.fftSize = 2048;
 
-    mediaRecorder.ondataavailable = event => {
-        audioChunks.push(event.data);
-    };
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
 
-    mediaRecorder.start();
+        mediaRecorder.ondataavailable = event => {
+            audioChunks.push(event.data);
+        };
 
-    // Update the waveform
-    function updateWaveform() {
-        if (mediaRecorder.state === 'recording') {
-            analyser.getByteTimeDomainData(dataArray);
-            wavesurfer.empty(); // Clear previous waveform data
+        mediaRecorder.start();
+        recordBtn.textContent = 'Stop'; // Change button text
 
-            // Create a buffer for the waveform visualization
-            const buffer = audioContext.createBuffer(1, bufferLength, audioContext.sampleRate);
-            buffer.copyToChannel(dataArray, 0);
-            wavesurfer.loadDecodedBuffer(buffer); // Load the buffer into Wavesurfer
-            requestAnimationFrame(updateWaveform); // Keep updating
+
+        // Update the waveform
+        function updateWaveform() {
+            if (mediaRecorder.state === 'recording') {
+                analyser.getByteTimeDomainData(dataArray);
+                wavesurfer.empty(); // Clear previous waveform data
+
+                // Create a buffer for the waveform visualization
+                const buffer = audioContext.createBuffer(1, bufferLength, audioContext.sampleRate);
+                buffer.copyToChannel(dataArray, 0);
+                wavesurfer.loadDecodedBuffer(buffer); // Load the buffer into Wavesurfer
+                requestAnimationFrame(updateWaveform); // Keep updating
+            }
         }
-    }
 
-    updateWaveform(); // Start the update loop
-});
+        updateWaveform(); // Start the update loop
 
-stopBtn.addEventListener('click', () => {
-    if (mediaRecorder) {
+    } else {
+
         mediaRecorder.stop(); // Stop the recording
         mediaRecorder.onstop = () => {
             audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
             audioUrl = URL.createObjectURL(audioBlob);
             wavesurfer.load(audioUrl); // Load recorded audio for playback
         };
+        recordBtn.textContent = 'Record'; // Change button text back
+
     }
 });
 
@@ -84,5 +89,5 @@ wavesurfer.on('play', () => {
 });
 
 wavesurfer.on('pause', () => {
-    playBtn.textContent = 'Play Audio';
+    playBtn.textContent = 'Play';
 });
