@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electron PortAudio</title>
+    <title>Audio Application</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/wavesurfer.js"></script> <!-- Wavesurfer.js -->
 </head>
 <body>
+    <div class="options">
+        <button id="recordBtn">Record</button>
+        <button id="playBtn">Play</button>
+    </div>
     <div class="container">
-        <h1>PortAudio with Electron.js</h1>
-        <button id="recordBtn">Start Recording</button>
-        <button id="stopBtn">Stop Recording</button>
-        <button id="playBtn">Play Audio</button>
         <div id="waveform" style="margin-top: 20px;"></div>
     </div>
 
