@@ -7,12 +7,27 @@ let audioUrl = null;
 
 // Initialize Wavesurfer.js for playback
 let wavesurfer = WaveSurfer.create({
+    /** HTML element or CSS selector (required) */
     container: '#waveform',
-    waveColor: 'violet',
-    progressColor: 'purple',
-    cursorColor: 'navy',
+    /** The color of the waveform */
+    waveColor: 'gray',
+    /** The color of the progress mask */
+    progressColor: 'rgb(41, 39, 39)',
+    /** The color of the playpack cursor */
+    cursorColor: 'black',
+    /** Pass false to disable clicks on the waveform */
     responsive: true,
+    /** The height of the waveform in pixels */
     height: 100,
+
+    /** Whether to show default audio element controls */
+    mediaControls: true,
+    // Set a bar width
+    barWidth: 2,
+    // Optionally, specify the spacing between bars
+    barGap: 1,
+    // And the bar radius
+    barRadius: 2,
 });
 
 // Handle recording
