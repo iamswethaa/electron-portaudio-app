@@ -20,7 +20,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    height: 25%;
+    height: 40%;
     width: 75%;
 }
 
@@ -31,7 +31,7 @@ h1 {
 }
 
 button {
-    background-color: rgb(92, 4, 92);
+    background-color: rgb(41, 39, 39);
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -46,5 +46,5 @@ button {
 }
 
 button:hover {
-    background-color: rgb(82, 4, 82);
+    background-color: black;
 }
